@@ -2,17 +2,22 @@ import React from "react";
 
 const CardControl = props => {
   const {
+    htmlType,
     ControlIcon,
     title,
     count,
+    statusBgImg,
     controlIconType,
     controlTitleType,
-    handleOnIconClick
+    handleOnIconClick,
+    onFileUploadChange
   } = props;
 
   const _renderControlType = () => {
     if (controlTitleType === "highlighted") {
       return <p className="card_footer_control_type--highlighted">{title}</p>;
+    } else if (controlTitleType === "disabled") {
+      return <p className="card_footer_control_type--disabled">{title}</p>;
     } else {
       return <p className="card_footer_control_type">{title}</p>;
     }
@@ -23,12 +28,31 @@ const CardControl = props => {
       return (
         <ControlIcon className="card_footer_control_icon card_footer_control_icon--danger" />
       );
+    } else if (controlIconType === "disabled") {
+      return (
+        <ControlIcon className="card_footer_control_icon card_footer_control_icon--disabled" />
+      );
     } else if (controlIconType === "highlighted") {
       return (
         <ControlIcon className="card_footer_control_icon card_footer_control_icon--highlighted" />
       );
     } else {
-      return <ControlIcon className="card_footer_control_icon" />;
+      if (htmlType === "file") {
+        return (
+          <>
+            <input
+              type="file"
+              className="control__type__file"
+              onChange={onFileUploadChange}
+              accept="image/*"
+              value={statusBgImg}
+            />
+            <ControlIcon className="card_footer_control_icon" />
+          </>
+        );
+      } else {
+        return <ControlIcon className="card_footer_control_icon" />;
+      }
     }
   };
 

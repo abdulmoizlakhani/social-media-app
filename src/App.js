@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import AppHeader from "./containers/AppHeader";
 import CreateStatusCard from "./containers/CreateStatusCard";
 import StatusCard from "./containers/StatusCard";
-import { generateRandomId } from "./helpers";
+import { generateRandomId, getBase64 } from "./helpers";
 
 // const dummyData = [
 //   {
 //     createdTimestamp: new Date().getTime(),
-//     content: `Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo.`,
+//     content: `Lorem Ipsum è un testo segnaposto utilizzato nel`,
 //     likes: ["user_1"],
-//     comments: []
+//     comments: [],
+//     backgroundImgUrl:
+//       "https://cdn.pixabay.com/photo/2017/03/25/17/55/color-2174045__340.png"
 //   },
 //   {
 //     createdTimestamp: new Date().getTime(),
@@ -18,7 +20,9 @@ import { generateRandomId } from "./helpers";
 //     comments: [
 //       { comment: "Very Nice, keep it up!", commentBy: "user_2" },
 //       { comment: "Very Nice, keep it up!", commentBy: "user_3" }
-//     ]
+//     ],
+//     backgroundImgUrl:
+//       "https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&w=1000&q=80"
 //   },
 //   {
 //     createdTimestamp: new Date().getTime(),
@@ -28,12 +32,15 @@ import { generateRandomId } from "./helpers";
 //       { comment: "Very Nice, keep it up!", commentBy: "user_3" },
 //       { comment: "Very Nice, keep it up!", commentBy: "user_2" },
 //       { comment: "Very Nice, keep it up!", commentBy: "user_1" }
-//     ]
+//     ],
+//     backgroundImgUrl:
+//       "https://cdn.pixabay.com/photo/2016/11/22/23/03/hardwood-1851071__340.jpg"
 //   }
 // ];
 
 const App = () => {
   const [statusText, updateStatusText] = useState("");
+  const [statusBgImg, updateStatusBgImg] = useState("");
   const [posts, updatePosts] = useState([]);
 
   const addNewPost = () => {
@@ -45,10 +52,12 @@ const App = () => {
         content: statusText,
         likes: [],
         comments: [],
-        postedBy: "user_1"
+        postedBy: "user_1",
+        backgroundImgUrl: statusBgImg
       }
     ]);
     updateStatusText("");
+    updateStatusBgImg("");
   };
 
   const handleOnLikeIconClick = postKey => {
@@ -76,14 +85,23 @@ const App = () => {
     updatePosts(updatedPosts);
   };
 
+  const handleFileInput = ev => {
+    const uploadedFile = ev["target"]["files"][0];
+    getBase64(uploadedFile, result => {
+      updateStatusBgImg(result);
+    });
+  };
+
   return (
     <div className="App">
       <AppHeader appHeaderClass="py4" />
 
       <CreateStatusCard
         statusText={statusText}
+        statusBgImg={statusBgImg}
         handleOnClick={addNewPost}
         handleOnChange={ev => updateStatusText(ev["target"]["value"])}
+        onFileUploadChange={handleFileInput}
       />
 
       {posts

@@ -4,7 +4,12 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardContent from "../../components/Card/CardContent";
 import CardFooter from "../../components/Card/CardFooter";
 import CardControl from "../../components/Card/CardControl";
-import { FaRegThumbsUp, FaRegCommentDots, FaRegTrashAlt } from "react-icons/fa";
+import {
+  FaRegThumbsUp,
+  FaThumbsUp,
+  FaRegCommentDots,
+  FaRegTrashAlt
+} from "react-icons/fa";
 
 const StatusCard = props => {
   const {
@@ -16,10 +21,12 @@ const StatusCard = props => {
   return (
     <Card cardContainerClass="card__shaded my7 py5 px4">
       <CardHeader showTime={true} showCardOptions={true} data={data} />
-      <CardContent data={data} />
+      <CardContent cardContentClass="my4 br2 px4 py5" data={data} />
       <CardFooter cardFooterClass="mt3">
         <CardControl
-          ControlIcon={FaRegThumbsUp}
+          ControlIcon={
+            data["likes"].indexOf("user_1") !== -1 ? FaThumbsUp : FaRegThumbsUp
+          }
           title={data["likes"].indexOf("user_1") !== -1 ? "Liked" : "Like"}
           count={data["likes"]["length"]}
           controlIconType={

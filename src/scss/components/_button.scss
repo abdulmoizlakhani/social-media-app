@@ -34,3 +34,8 @@
     }
   }
 }
+
+.button--disabled {
+  background-color: #b3b3b3;
+  cursor: not-allowed;
+}
