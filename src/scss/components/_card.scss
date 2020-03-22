@@ -1,0 +1,144 @@
+.space-dash {
+  margin: 0 5px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card__shaded {
+  box-shadow: 3px 3px 10px #dedede;
+}
+
+.card__filled-grey {
+  background-color: #f2f3f3;
+}
+
+.card__header {
+  display: flex;
+
+  .user_info_container {
+    flex: 10;
+    display: flex;
+
+    .user__avatar_container {
+      .user__avatar_box {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #d8d8d8;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        overflow: hidden;
+
+        .user__avatar--placeholder {
+          width: 80%;
+          height: 80%;
+          color: #adadad;
+        }
+      }
+    }
+
+    .user__intro_container {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+
+      .user__name {
+        flex: 1;
+        @include font-size(12px);
+        letter-spacing: 0.5px;
+      }
+
+      .ch__post_info_container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        color: #7f7f7f;
+        @include font-size(8px, 0);
+
+        .ch__post_info {
+          display: flex;
+          align-items: center;
+
+          .ch__post_info__place {
+            margin-right: 10px;
+          }
+          .ch__post_info__user_friends_icon {
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+
+  .card__options_container {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 7.5px;
+
+    .card__options_icon {
+      @include font-size(9px, 0);
+    }
+  }
+}
+
+.card_content {
+  padding: 15px 0;
+  word-wrap: break-word;
+
+  .card_text {
+    @include font-size(10.5px, 18px);
+    color: #2b2b2b;
+  }
+}
+
+.card_footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card_footer_control {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .card_footer_control_icon_contianer {
+    display: flex;
+
+    .card_footer_control_icon {
+      @include font-size(14px, 0);
+    }
+
+    .card_footer_control_icon--danger {
+      color: #d33115;
+    }
+
+    .card_footer_control_icon--highlighted {
+      color: #ef6025;
+    }
+  }
+
+  .card_footer_control_type_container {
+    display: flex;
+    flex-direction: column;
+    @include font-size(9px, 1);
+    margin-left: 5px;
+
+    .card_footer_control_type {
+      font-weight: bold;
+    }
+
+    .card_footer_control_type--highlighted {
+      color: #ef6025;
+    }
+
+    .card_footer_control_count {
+      @include font-size(7px, 1.5);
+    }
+  }
+}

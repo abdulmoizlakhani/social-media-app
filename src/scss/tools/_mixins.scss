@@ -1,0 +1,76 @@
+$sizes: 24;
+
+@mixin border-box-t {
+  border: 1px solid red;
+}
+
+@mixin border-box($width, $style, $color) {
+  border: $width $style $color;
+}
+
+@mixin margin-classes {
+  @for $i from 1 through $sizes {
+     $margin: $i * 0.25rem;
+    /* margin #{$margin} */
+    .m#{$i}  {margin: $margin;}
+    .ml#{$i} {margin-left: $margin;}
+    .mr#{$i} {margin-right: $margin;}
+    .mt#{$i} {margin-top: $margin;}
+    .mb#{$i} {margin-bottom: $margin;}
+    .mx#{$i} {margin-left: $margin; margin-right: $margin;}
+    .my#{$i} {margin-top: $margin; margin-bottom: $margin;}
+  }
+}
+@include margin-classes;
+
+@mixin padding-classes {
+  @for $i from 1 through $sizes {
+    $padding: $i * 0.25rem;
+    /* padding #{$padding} */
+    .p#{$i} {padding: $padding;}
+    .pl#{$i} {padding-left: $padding;}
+    .pr#{$i} {padding-right: $padding;}
+    .pt#{$i} {padding-top: $padding;}
+    .pb#{$i} {padding-bottom: $padding;}
+    .px#{$i} {padding-left: $padding; padding-right: $padding;}
+    .py#{$i} {padding-top: $padding; padding-bottom: $padding;}
+  }
+}
+@include padding-classes;
+
+@mixin border-classes {
+  @for $i from 1 through $sizes {
+    $borderRadius: $i * 0.25rem;
+    .br#{$i} {border-radius: $borderRadius;}
+    .br-tl#{$i} {border-top-left-radius: $borderRadius;}
+    .br-tr#{$i} {border-top-right-radius: $borderRadius;}
+    .br-bl#{$i} {border-bottom-left-radius: $borderRadius;}
+    .br-br#{$i} {border-bottom-right-radius: $borderRadius;}
+    .br-t#{$i} {border-top-left-radius: $borderRadius; border-top-right-radius: $borderRadius;}
+    .br-b#{$i} {border-bottom-left-radius: $borderRadius; border-bottom-right-radius: $borderRadius;}
+  }
+}
+@include border-classes;
+
+@mixin font-size($font-size, $line-height: auto) {
+  font-size: $font-size;
+  font-size: ($font-size / $base-font-size) * 1rem;
+
+  @if $line-height == auto {
+    line-height: ceil($font-size / $base-line-height) *
+      ($base-line-height / $font-size);
+  } @else {
+    @if (
+      type-of($line-height) ==
+        number or
+        $line-height ==
+        inherit or
+        $line-height ==
+        normal
+    ) {
+      line-height: $line-height;
+    } @else if ($line-height != none and $line-height != false) {
+      @warn "D’oh! ‘#{$line-height}’ is not a valid value for `line-height`.";
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.status__editor__container {
+  overflow: hidden;
+  border-bottom: 1px solid #c6c8c8;
+
+  .status__editor {
+    width: 100%;
+    min-height: 10vh;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-family: "Sen Regular", Helvetica, sans-serif;
+    color: #ef6025;
+  }
+
+  .status__editor::placeholder {
+    color: #c6c8c8;
+  }
+}

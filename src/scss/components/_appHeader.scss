@@ -1,0 +1,29 @@
+.app__header {
+    display: flex;
+    align-items: center;
+    
+    .app__header__option_icon {
+        width: 18px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .app__header__logo__container {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+    
+    .app__header__options__container {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: flex-end;
+
+        .app__header__option {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+    }
+}
