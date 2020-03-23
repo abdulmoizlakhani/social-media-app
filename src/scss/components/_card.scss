@@ -172,6 +172,29 @@
   }
 }
 
+.card__header--small {
+  .user_info_container {
+    .user__avatar_container {
+      .user__avatar_box {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .user__intro_container {
+      .user__name {
+        display: flex;
+        align-items: center;
+        @include font-size(9px, 20px);
+      }
+
+      .ch__post_info_container {
+        @include font-size(7px, 10px);
+      }
+    }
+  }
+}
+
 .upload__img__container {
   overflow: hidden;
   width: 100%;

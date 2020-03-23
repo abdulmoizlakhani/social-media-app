@@ -4,6 +4,7 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardContent from "../../components/Card/CardContent";
 import CardFooter from "../../components/Card/CardFooter";
 import CardControl from "../../components/Card/CardControl";
+import CommentBox from "../../containers/CommentBox";
 import {
   FaRegThumbsUp,
   FaThumbsUp,
@@ -14,13 +15,22 @@ import {
 const StatusCard = props => {
   const {
     data,
+    commentText, 
+    handleOnCommentChange,
     handleOnLikeIconClick,
     handleOnCommentIconClick,
-    handleOnDeleteIconClick
+    handleOnDeleteIconClick,
+    handleOnCommentSendClick
   } = props;
   return (
     <Card cardContainerClass="card__shaded my7 py5 px4">
-      <CardHeader showTime={true} showCardOptions={true} data={data} />
+      <CardHeader
+        showTime={true}
+        showCardOptions={true}
+        showPlace={true}
+        showFriendsIcon={true}
+        data={data}
+      />
       <CardContent cardContentClass="my4 br2 px4 py5" data={data} />
       <CardFooter cardFooterClass="mt3">
         <CardControl
@@ -39,9 +49,11 @@ const StatusCard = props => {
         />
         <CardControl
           ControlIcon={FaRegCommentDots}
-          title={"Comment"}
+          title={"Comments"}
           count={data["comments"]["length"]}
-          handleOnIconClick={handleOnCommentIconClick}
+          controlIconType={data["showComments"] ? "highlighted" : ""}
+          controlTitleType={data["showComments"] ? "highlighted" : ""}
+          handleOnIconClick={() => handleOnCommentIconClick(data["dataIndex"])}
         />
         <CardControl
           ControlIcon={FaRegTrashAlt}
@@ -50,6 +62,14 @@ const StatusCard = props => {
           handleOnIconClick={() => handleOnDeleteIconClick(data["postId"])}
         />
       </CardFooter>
+      {data["showComments"] && (
+        <CommentBox
+          commentsList={data["comments"]}
+          commentText={commentText}
+          handleOnChange={handleOnCommentChange}
+          handleOnClick={handleOnCommentSendClick}
+        />
+      )}
     </Card>
   );
 };

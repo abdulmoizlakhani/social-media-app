@@ -1,0 +1,11 @@
+.comment_box__container {
+    border-top: 1px solid #c6c8c8;
+    
+    .comment_box:last-of-type {
+        @extend .mb1;
+    }
+    
+    .comment__content {
+        @include font-size(9px, 18px);
+    }
+}

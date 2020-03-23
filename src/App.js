@@ -4,44 +4,87 @@ import CreateStatusCard from "./containers/CreateStatusCard";
 import StatusCard from "./containers/StatusCard";
 import { generateRandomId, getBase64 } from "./helpers";
 
-// const dummyData = [
-//   {
-//     createdTimestamp: new Date().getTime(),
-//     content: `Lorem Ipsum è un testo segnaposto utilizzato nel`,
-//     likes: ["user_1"],
-//     comments: [],
-//     backgroundImgUrl:
-//       "https://cdn.pixabay.com/photo/2017/03/25/17/55/color-2174045__340.png"
-//   },
-//   {
-//     createdTimestamp: new Date().getTime(),
-//     content: `Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo.`,
-//     likes: ["user_2", "user_3", "user_1"],
-//     comments: [
-//       { comment: "Very Nice, keep it up!", commentBy: "user_2" },
-//       { comment: "Very Nice, keep it up!", commentBy: "user_3" }
-//     ],
-//     backgroundImgUrl:
-//       "https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&w=1000&q=80"
-//   },
-//   {
-//     createdTimestamp: new Date().getTime(),
-//     content: `Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo.`,
-//     likes: ["user_3", "user_2"],
-//     comments: [
-//       { comment: "Very Nice, keep it up!", commentBy: "user_3" },
-//       { comment: "Very Nice, keep it up!", commentBy: "user_2" },
-//       { comment: "Very Nice, keep it up!", commentBy: "user_1" }
-//     ],
-//     backgroundImgUrl:
-//       "https://cdn.pixabay.com/photo/2016/11/22/23/03/hardwood-1851071__340.jpg"
-//   }
-// ];
+const dummyData = [
+  {
+    postId: generateRandomId(),
+    createdTimestamp: new Date().getTime(),
+    content: `Lorem Ipsum è un testo segnaposto utilizzato nel`,
+    likes: ["user_1"],
+    comments: [],
+    showComments: false,
+    backgroundImgUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQi_TA7_-UJfdD2VvZe73h5eenhfPxII0fDUyweRHHxJtRyVSaA"
+  },
+  {
+    postId: generateRandomId(),
+    createdTimestamp: new Date().getTime(),
+    content: `Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo.`,
+    likes: ["user_2", "user_3", "user_1"],
+    showComments: false,
+    comments: [
+      {
+        comment: "Very Nice, keep it up!",
+        commentBy: {
+          userId: "user_2",
+          userName: "Jack Mike",
+        },
+        createdTimestamp: new Date().getTime()
+      },
+      {
+        comment: "Very Nice, keep it up!",
+        commentBy: {
+          userId: "user_3",
+          userName: "John Doe",
+        },
+        createdTimestamp: new Date().getTime()
+      }
+    ],
+    backgroundImgUrl:
+      "https://lh3.googleusercontent.com/proxy/m0LpVizaG-oPQbwXz8tO9DwMcPdzW-TNHnBc7iWWO9sjBnf6gubwVeBNfxAuZqzMWun2KQbPURCQ7v2l3n0f2i4dbvUwQ9iAFn9TZ7z0xUd-sRZt8FyStSoAle-MhWTk"
+  },
+  {
+    postId: generateRandomId(),
+    createdTimestamp: new Date().getTime(),
+    content: `Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato il testo.`,
+    likes: ["user_3", "user_2"],
+    showComments: false,
+    comments: [
+      {
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        commentBy: {
+          userId: "user_3",
+          userName: "John Doe"
+        },
+        createdTimestamp: new Date().getTime()
+      },
+      {
+        comment: "Very Nice, keep it up!",
+        commentBy: {
+          userId: "user_2",
+          userName: "Jack Mike"
+        },
+        createdTimestamp: new Date().getTime()
+      },
+      {
+        comment: "Very Nice, keep it up!",
+        commentBy: {
+          userId: "user_1",
+          userName: "Abdul Moiz"
+        },
+        createdTimestamp: new Date().getTime()
+      }
+    ],
+    backgroundImgUrl:
+      "https://www.onlygfx.com/wp-content/uploads/2018/08/9-watercolor-holographic-effect-background-4-1024x718.jpg"
+  }
+];
 
 const App = () => {
   const [statusText, updateStatusText] = useState("");
+  const [newComments, updateNewComments] = useState({});
   const [statusBgImg, updateStatusBgImg] = useState("");
-  const [posts, updatePosts] = useState([]);
+  const [posts, updatePosts] = useState([...dummyData]);
 
   const addNewPost = () => {
     updatePosts([
@@ -50,6 +93,7 @@ const App = () => {
         postId: generateRandomId(),
         createdTimestamp: new Date().getTime(),
         content: statusText,
+        showComments: false,
         likes: [],
         comments: [],
         postedBy: "user_1",
@@ -58,6 +102,23 @@ const App = () => {
     ]);
     updateStatusText("");
     updateStatusBgImg("");
+  };
+
+  const handleOnCommentSendClick = (postId, postKey) => {
+    let updatedPosts = [...posts];
+    updatedPosts[postKey]["comments"] = [
+      ...updatedPosts[postKey]["comments"],
+      {
+        comment: newComments[postId]["comment"],
+        commentBy: {
+          userId: "user_1",
+          userName: "Abdul Moiz",
+        },
+        createdTimestamp: new Date().getTime()
+      }
+    ];
+    updatePosts(updatedPosts);
+    delete newComments[postId];
   };
 
   const handleOnLikeIconClick = postKey => {
@@ -77,7 +138,16 @@ const App = () => {
     updatePosts(updatedPosts);
   };
 
-  const handleOnCommentIconClick = () => {};
+  const handleOnCommentIconClick = postKey => {
+    let updatedPosts = [...posts];
+    const alreadyOpen = updatedPosts[postKey]["showComments"];
+    if (alreadyOpen) {
+      updatedPosts[postKey]["showComments"] = false;
+    } else {
+      updatedPosts[postKey]["showComments"] = true;
+    }
+    updatePosts(updatedPosts);
+  };
 
   const handleOnDeleteIconClick = postId => {
     let updatedPosts = [...posts];
@@ -119,6 +189,23 @@ const App = () => {
               handleOnLikeIconClick={handleOnLikeIconClick}
               handleOnCommentIconClick={handleOnCommentIconClick}
               handleOnDeleteIconClick={handleOnDeleteIconClick}
+              commentText={
+                newComments[updatedData["postId"]]
+                  ? newComments[updatedData["postId"]]["comment"]
+                  : ""
+              }
+              handleOnCommentChange={ev =>
+                updateNewComments({
+                  ...newComments,
+                  [updatedData["postId"]]: { comment: ev["target"]["value"] }
+                })
+              }
+              handleOnCommentSendClick={_ =>
+                handleOnCommentSendClick(
+                  updatedData["postId"],
+                  updatedData["dataIndex"]
+                )
+              }
             />
           );
         })}

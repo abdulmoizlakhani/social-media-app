@@ -20,7 +20,7 @@ const CreateStatusCard = props => {
 
   return (
     <Card cardContainerClass="card__filled-grey br3 py5 px4">
-      <CardHeader />
+      <CardHeader showPlace={true} showFriendsIcon={true} />
       <StatusEditor
         statusText={statusText}
         statusEditorClass="mt6"
